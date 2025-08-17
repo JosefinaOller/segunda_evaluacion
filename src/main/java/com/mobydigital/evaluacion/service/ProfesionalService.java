@@ -1,0 +1,23 @@
+package com.mobydigital.evaluacion.service;
+
+import com.mobydigital.evaluacion.model.Profesional;
+import com.mobydigital.evaluacion.repository.IProfesionalRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+public class ProfesionalService implements IProfesionalService{
+
+    @Autowired
+    private IProfesionalRepository profRepo;
+
+    @Override
+    public void saveProfesional(Profesional profesional) {
+        profRepo.save(profesional);
+    }
+
+    @Override
+    public List<Profesional> findByEspecialidad(String especialidad) {
+        return profRepo.findByEspecialidad(especialidad);
+    }
+}
