@@ -5,6 +5,8 @@ import com.mobydigital.evaluacion.service.IPacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/pacientes")
 public class PacienteController {
@@ -22,6 +24,13 @@ public class PacienteController {
     public Paciente findPaciente (@PathVariable Long id){
         return pacService.findPaciente(id);
     }
+
+    @GetMapping
+    public List<Paciente> getPacientes(){
+        return pacService.getPacientes();
+    }
+
+
 
 
 }
