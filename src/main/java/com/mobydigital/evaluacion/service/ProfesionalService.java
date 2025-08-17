@@ -3,9 +3,11 @@ package com.mobydigital.evaluacion.service;
 import com.mobydigital.evaluacion.model.Profesional;
 import com.mobydigital.evaluacion.repository.IProfesionalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProfesionalService implements IProfesionalService{
 
     @Autowired
