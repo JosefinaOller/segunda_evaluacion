@@ -30,6 +30,12 @@ public class PacienteController {
         return pacService.getPacientes();
     }
 
+    @DeleteMapping("{id}")
+    public String deletePaciente (@PathVariable Long id){
+        pacService.deletePaciente(id);
+        return "El paciente fue eliminado correctamente";
+    }
+
 
 
 
