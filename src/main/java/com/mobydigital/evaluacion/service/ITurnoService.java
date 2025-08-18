@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ITurnoService {
 
-    public void saveTurno (Turno turno);
+    public Turno saveTurno (Turno turno);
 
     public List<Turno> getTurnos();
 
