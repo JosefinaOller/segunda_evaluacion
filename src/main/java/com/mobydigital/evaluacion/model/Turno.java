@@ -1,6 +1,7 @@
 package com.mobydigital.evaluacion.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,12 +20,15 @@ public class Turno {
 
     @ManyToOne
     @JoinColumn(name= "paciente_id")
+    @NotNull
     private Paciente paciente;
 
     @ManyToOne
     @JoinColumn(name = "profesional_id")
+    @NotNull
     private Profesional profesional;
 
+    @NotNull
     private LocalDate fecha;
     
 }
