@@ -13,9 +13,8 @@ public class PacienteService implements IPacienteService{
     private IPacienteRepository pacienteRepo;
 
     @Override
-    public void savePaciente(Paciente paciente) {
-        pacienteRepo.save(paciente);
-
+    public Paciente savePaciente(Paciente paciente) {
+        return pacienteRepo.save(paciente);
     }
 
     @Override

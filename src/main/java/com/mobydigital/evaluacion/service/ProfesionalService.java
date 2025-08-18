@@ -14,8 +14,8 @@ public class ProfesionalService implements IProfesionalService{
     private IProfesionalRepository profRepo;
 
     @Override
-    public void saveProfesional(Profesional profesional) {
-        profRepo.save(profesional);
+    public Profesional saveProfesional(Profesional profesional) {
+        return profRepo.save(profesional);
     }
 
     @Override

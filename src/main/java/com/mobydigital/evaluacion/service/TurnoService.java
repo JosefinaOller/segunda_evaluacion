@@ -14,8 +14,8 @@ public class TurnoService implements ITurnoService{
     @Autowired
     private ITurnoRepository turnoRepo;
     @Override
-    public void saveTurno(Turno turno) {
-        turnoRepo.save(turno);
+    public Turno saveTurno(Turno turno) {
+        return turnoRepo.save(turno);
     }
     @Override
     public List<Turno> getTurnos() {
