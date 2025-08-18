@@ -2,6 +2,7 @@ package com.mobydigital.evaluacion.controller;
 
 import com.mobydigital.evaluacion.model.Profesional;
 import com.mobydigital.evaluacion.service.IProfesionalService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,17 +14,17 @@ import java.util.List;
 public class ProfesionalController {
 
     @Autowired
-    private IProfesionalService profService;
+    private IProfesionalService service;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Profesional createProfesional(@RequestBody Profesional profesional){
-        return profService.saveProfesional(profesional);
+    public Profesional createProfesional(@Valid @RequestBody Profesional profesional){
+        return service.saveProfesional(profesional);
     }
 
     @GetMapping
     public List<Profesional> findByEspecialidad(@RequestParam(required = false) String especialidad){
-        return profService.findByEspecialidad(especialidad);
+        return service.findByEspecialidad(especialidad);
     }
 
 }
