@@ -15,7 +15,7 @@ public class ProfesionalController {
     private IProfesionalService profService;
 
     @PostMapping
-    public String createProfesional(Profesional profesional){
+    public String createProfesional(@RequestBody Profesional profesional){
         profService.saveProfesional(profesional);
         return "El profesional fue creado correctamente";
     }
