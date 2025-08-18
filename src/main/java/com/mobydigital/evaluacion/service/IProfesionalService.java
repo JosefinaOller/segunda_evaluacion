@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IProfesionalService {
 
-    public void saveProfesional(Profesional profesional);
+    public Profesional saveProfesional(Profesional profesional);
 
     public List<Profesional> findByEspecialidad (String especialidad);
 }
