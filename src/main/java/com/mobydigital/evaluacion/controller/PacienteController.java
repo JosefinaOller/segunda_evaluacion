@@ -2,9 +2,9 @@ package com.mobydigital.evaluacion.controller;
 
 import com.mobydigital.evaluacion.model.Paciente;
 import com.mobydigital.evaluacion.service.IPacienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,28 +14,28 @@ import java.util.List;
 public class PacienteController {
 
     @Autowired
-    private IPacienteService pacService;
+    private IPacienteService service;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Paciente createPaciente (@RequestBody Paciente paciente){
-        return pacService.savePaciente(paciente);
+    public Paciente createPaciente (@Valid @RequestBody Paciente paciente){
+        return service.savePaciente(paciente);
     }
 
     @GetMapping ("{id}")
     public Paciente findPaciente (@PathVariable Long id){
-        return pacService.findPaciente(id);
+        return service.findPaciente(id);
     }
 
     @GetMapping
     public List<Paciente> getPacientes(){
-        return pacService.getPacientes();
+        return service.getPacientes();
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePaciente (@PathVariable Long id){
-        pacService.deletePaciente(id);
+        service.deletePaciente(id);
     }
 
 }
