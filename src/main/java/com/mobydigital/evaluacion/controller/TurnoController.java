@@ -3,6 +3,7 @@ package com.mobydigital.evaluacion.controller;
 import com.mobydigital.evaluacion.model.Turno;
 import com.mobydigital.evaluacion.service.ITurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -16,9 +17,9 @@ public class TurnoController {
     private ITurnoService turnoService;
 
     @PostMapping
-    public String createTurno(@RequestBody Turno turno){
-        turnoService.saveTurno(turno);
-        return "El turno fue creado correctamente";
+    @ResponseStatus(HttpStatus.CREATED)
+    public Turno createTurno(@RequestBody Turno turno){
+        return turnoService.saveTurno(turno);
     }
 
     @GetMapping
@@ -29,6 +30,12 @@ public class TurnoController {
     @GetMapping("fecha/{fecha}")
     public List<Turno> findByFecha(@PathVariable LocalDate fecha){
         return turnoService.findByFecha(fecha);
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTurno(@PathVariable Long id){
+        turnoService.deleteTurno(id);
     }
 
 }
