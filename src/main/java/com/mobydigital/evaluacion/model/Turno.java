@@ -22,8 +22,9 @@ public class Turno {
     private Paciente paciente;
 
     @ManyToOne
-    @JoinColumn(name = "profesiona_id")
+    @JoinColumn(name = "profesional_id")
     private Profesional profesional;
 
     private LocalDate fecha;
+    
 }
