@@ -3,6 +3,8 @@ package com.mobydigital.evaluacion.controller;
 import com.mobydigital.evaluacion.model.Paciente;
 import com.mobydigital.evaluacion.service.IPacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,9 +17,9 @@ public class PacienteController {
     private IPacienteService pacService;
 
     @PostMapping
-    public String createPaciente (@RequestBody Paciente paciente){
-        pacService.savePaciente(paciente);
-        return "El paciente fue creado correctamente";
+    @ResponseStatus(HttpStatus.CREATED)
+    public Paciente createPaciente (@RequestBody Paciente paciente){
+        return pacService.savePaciente(paciente);
     }
 
     @GetMapping ("{id}")
@@ -31,12 +33,9 @@ public class PacienteController {
     }
 
     @DeleteMapping("{id}")
-    public String deletePaciente (@PathVariable Long id){
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePaciente (@PathVariable Long id){
         pacService.deletePaciente(id);
-        return "El paciente fue eliminado correctamente";
     }
-
-
-
 
 }
