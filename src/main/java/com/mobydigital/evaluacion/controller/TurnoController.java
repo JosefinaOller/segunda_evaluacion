@@ -2,6 +2,7 @@ package com.mobydigital.evaluacion.controller;
 
 import com.mobydigital.evaluacion.model.Turno;
 import com.mobydigital.evaluacion.service.ITurnoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,28 +15,28 @@ import java.util.List;
 public class TurnoController {
 
     @Autowired
-    private ITurnoService turnoService;
+    private ITurnoService service;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Turno createTurno(@RequestBody Turno turno){
-        return turnoService.saveTurno(turno);
+    public Turno createTurno(@Valid @RequestBody Turno turno){
+        return service.saveTurno(turno);
     }
 
     @GetMapping
     public List<Turno> getTurnos(){
-        return turnoService.getTurnos();
+        return service.getTurnos();
     }
 
     @GetMapping("fecha/{fecha}")
     public List<Turno> findByFecha(@PathVariable LocalDate fecha){
-        return turnoService.findByFecha(fecha);
+        return service.findByFecha(fecha);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTurno(@PathVariable Long id){
-        turnoService.deleteTurno(id);
+        service.deleteTurno(id);
     }
 
 }
