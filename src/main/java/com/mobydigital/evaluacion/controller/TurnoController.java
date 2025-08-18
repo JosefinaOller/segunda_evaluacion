@@ -16,7 +16,7 @@ public class TurnoController {
     private ITurnoService turnoService;
 
     @PostMapping
-    public String createTurno(Turno turno){
+    public String createTurno(@RequestBody Turno turno){
         turnoService.saveTurno(turno);
         return "El turno fue creado correctamente";
     }
