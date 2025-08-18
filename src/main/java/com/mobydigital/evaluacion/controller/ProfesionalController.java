@@ -3,6 +3,7 @@ package com.mobydigital.evaluacion.controller;
 import com.mobydigital.evaluacion.model.Profesional;
 import com.mobydigital.evaluacion.service.IProfesionalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,9 +16,9 @@ public class ProfesionalController {
     private IProfesionalService profService;
 
     @PostMapping
-    public String createProfesional(@RequestBody Profesional profesional){
-        profService.saveProfesional(profesional);
-        return "El profesional fue creado correctamente";
+    @ResponseStatus(HttpStatus.CREATED)
+    public Profesional createProfesional(@RequestBody Profesional profesional){
+        return profService.saveProfesional(profesional);
     }
 
     @GetMapping
