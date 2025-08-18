@@ -32,4 +32,10 @@ public class TurnoController {
         return turnoService.findByFecha(fecha);
     }
 
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTurno(@PathVariable Long id){
+        turnoService.deleteTurno(id);
+    }
+
 }
