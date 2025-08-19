@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -33,6 +32,10 @@ public class TurnoController {
         return service.findByFecha(fecha);
     }
 
+    @GetMapping(params = {"desde","hasta"})
+    public List<Turno> findByFechaBetween(@RequestParam("desde") LocalDate desde, @RequestParam("hasta") LocalDate hasta){
+        return service.findByFechaBetween(desde,hasta);
+    }
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTurno(@PathVariable Long id){
