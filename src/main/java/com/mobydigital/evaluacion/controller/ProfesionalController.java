@@ -22,8 +22,8 @@ public class ProfesionalController {
         return service.saveProfesional(profesional);
     }
 
-    @GetMapping
-    public List<Profesional> findByEspecialidad(@RequestParam(required = false) String especialidad){
+    @GetMapping(params = "especialidad")
+    public List<Profesional> findByEspecialidad(@RequestParam String especialidad){
         return service.findByEspecialidad(especialidad);
     }
 
