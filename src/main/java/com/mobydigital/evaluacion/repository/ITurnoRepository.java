@@ -14,6 +14,6 @@ import java.util.Optional;
 @Repository
 public interface ITurnoRepository extends JpaRepository<Turno, Long> {
     List<Turno> findByFecha(LocalDate fecha);
-
     Optional<Turno> findByPacienteAndProfesionalAndFecha(Paciente paciente, Profesional profesional, LocalDate fecha);
+    List<Turno> findByFechaBetween(LocalDate desde, LocalDate hasta);
 }
