@@ -20,15 +20,15 @@ public class Turno {
 
     @ManyToOne
     @JoinColumn(name= "paciente_id")
-    @NotNull
+    @NotNull(message = "El paciente no debe ser nulo")
     private Paciente paciente;
 
     @ManyToOne
     @JoinColumn(name = "profesional_id")
-    @NotNull
+    @NotNull(message = "El profesional no debe ser nulo")
     private Profesional profesional;
 
-    @NotNull
+    @NotNull(message = "La fecha no debe ser nula")
     private LocalDate fecha;
     
 }

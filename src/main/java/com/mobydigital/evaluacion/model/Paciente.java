@@ -19,20 +19,20 @@ public class Paciente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(min = 2, max = 30)
+    @NotBlank(message = "El nombre no puede estar vacío.")
+    @Size(min = 2, max = 30, message = "El nombre debe tener entre 2 y 30 caracteres.")
     private String nombre;
 
-    @NotBlank
-    @Size(min = 2, max = 30)
+    @NotBlank(message = "El apellido no puede estar vacío.")
+    @Size(min = 2, max = 30, message = "El apellido debe tener entre 2 y 30 caracteres.")
     private String apellido;
 
-    @NotBlank
-    @Size(min = 7, max = 8)
-    @Pattern(regexp = "\\d+") //solo números
+    @NotBlank(message = "El documento no puede estar vacío.")
+    @Size(min = 7, max = 8, message = "El documento debe tener entre 7 y 8 números.")
+    @Pattern(regexp = "\\d+", message = "El documento debe contener sólo números.") //solo números
     private String dni;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "El email no puede estar vacío.")
+    @Email(message = "El email debe tener @ y su servidor correspondiente.")
     private String email;
 }

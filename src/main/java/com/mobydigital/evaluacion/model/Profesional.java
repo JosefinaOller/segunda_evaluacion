@@ -19,11 +19,11 @@ public class Profesional {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(min = 3, max = 50)
+    @NotBlank(message = "El nombre completo no puede estar vacío.")
+    @Size(min = 3, max = 50, message = "El nombre completo debe tener entre 3 y 50 caracteres.")
     private String nombreCompleto;
 
-    @NotBlank
-    @Size(min = 3, max = 20)
+    @NotBlank(message = "La especialidad no puede estar vacía.")
+    @Size(min = 3, max = 20, message = "La especialidad debe tener entre 3 y 20 caracteres.")
     private String especialidad;
 }
