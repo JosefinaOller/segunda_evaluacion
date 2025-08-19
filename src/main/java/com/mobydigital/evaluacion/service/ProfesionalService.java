@@ -11,15 +11,15 @@ import java.util.List;
 public class ProfesionalService implements IProfesionalService{
 
     @Autowired
-    private IProfesionalRepository profRepo;
+    private IProfesionalRepository repository;
 
     @Override
     public Profesional saveProfesional(Profesional profesional) {
-        return profRepo.save(profesional);
+        return repository.save(profesional);
     }
 
     @Override
     public List<Profesional> findByEspecialidad(String especialidad) {
-        return profRepo.findByEspecialidad(especialidad);
+        return repository.findByEspecialidad(especialidad);
     }
 }

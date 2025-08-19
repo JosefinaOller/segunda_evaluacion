@@ -10,25 +10,25 @@ import java.util.List;
 public class PacienteService implements IPacienteService{
 
     @Autowired
-    private IPacienteRepository pacienteRepo;
+    private IPacienteRepository repository;
 
     @Override
     public Paciente savePaciente(Paciente paciente) {
-        return pacienteRepo.save(paciente);
+        return repository.save(paciente);
     }
 
     @Override
     public Paciente findPaciente(Long id) {
-        return pacienteRepo.findById(id).orElse(null);
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public List<Paciente> getPacientes() {
-        return pacienteRepo.findAll();
+        return repository.findAll();
     }
 
     @Override
     public void deletePaciente(Long id) {
-        pacienteRepo.deleteById(id);
+        repository.deleteById(id);
     }
 }
