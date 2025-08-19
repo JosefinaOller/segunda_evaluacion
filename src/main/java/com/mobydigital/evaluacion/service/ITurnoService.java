@@ -13,5 +13,7 @@ public interface ITurnoService {
 
     public List<Turno> findByFecha(LocalDate fecha);
 
+    public List<Turno> findByFechaBetween(LocalDate desde, LocalDate hasta);
+
     public void deleteTurno (Long id);
 }

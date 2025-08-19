@@ -56,6 +56,11 @@ public class TurnoService implements ITurnoService{
     }
 
     @Override
+    public List<Turno> findByFechaBetween(LocalDate desde, LocalDate hasta) {
+        return turnoRepository.findByFechaBetween(desde,hasta);
+    }
+
+    @Override
     public void deleteTurno(Long id) {
         if (!turnoRepository.existsById(id)) { //Verifico si no existe el turno buscado
             throw new RecursoNoEncontradoException("El turno con ID " + id + " no existe. ");
