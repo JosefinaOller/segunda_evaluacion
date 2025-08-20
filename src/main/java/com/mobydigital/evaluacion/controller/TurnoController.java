@@ -1,6 +1,6 @@
 package com.mobydigital.evaluacion.controller;
 
-import com.mobydigital.evaluacion.dto.TurnoDto;
+import com.mobydigital.evaluacion.dto.TurnoDTO;
 import com.mobydigital.evaluacion.model.Turno;
 import com.mobydigital.evaluacion.service.ITurnoService;
 import jakarta.validation.Valid;
@@ -19,22 +19,22 @@ public class TurnoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TurnoDto createTurno(@Valid @RequestBody Turno turno){
+    public TurnoDTO createTurno(@Valid @RequestBody Turno turno){
         return service.saveTurno(turno);
     }
 
     @GetMapping
-    public List<TurnoDto> getTurnos(){
+    public List<TurnoDTO> getTurnos(){
         return service.getTurnos();
     }
 
     @GetMapping("fecha/{fecha}")
-    public List<TurnoDto> findByFecha(@PathVariable LocalDate fecha){
+    public List<TurnoDTO> findByFecha(@PathVariable LocalDate fecha){
         return service.findByFecha(fecha);
     }
 
     @GetMapping(params = {"desde","hasta"})
-    public List<TurnoDto> findByFechaBetween(@RequestParam("desde") LocalDate desde, @RequestParam("hasta") LocalDate hasta){
+    public List<TurnoDTO> findByFechaBetween(@RequestParam("desde") LocalDate desde, @RequestParam("hasta") LocalDate hasta){
         return service.findByFechaBetween(desde,hasta);
     }
     @DeleteMapping("{id}")

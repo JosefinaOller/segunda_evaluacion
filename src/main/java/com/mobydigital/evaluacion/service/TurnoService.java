@@ -1,6 +1,6 @@
 package com.mobydigital.evaluacion.service;
 
-import com.mobydigital.evaluacion.dto.TurnoDto;
+import com.mobydigital.evaluacion.dto.TurnoDTO;
 import com.mobydigital.evaluacion.exception.DatoInvalidoException;
 import com.mobydigital.evaluacion.exception.RecursoNoEncontradoException;
 import com.mobydigital.evaluacion.model.Paciente;
@@ -29,7 +29,7 @@ public class TurnoService implements ITurnoService{
     @Autowired
     private IProfesionalRepository profesionalRepository;
     @Override
-    public TurnoDto saveTurno(Turno turno) {
+    public TurnoDTO saveTurno(Turno turno) {
         //Validar si existe Paciente
         Optional<Paciente> pacExistente = pacienteRepository.findById(turno.getPaciente().getId());
         if (pacExistente.isEmpty()) {
@@ -48,7 +48,7 @@ public class TurnoService implements ITurnoService{
         return convertToDto(turnoRepository.save(turno));
     }
     @Override
-    public List<TurnoDto> getTurnos() {
+    public List<TurnoDTO> getTurnos() {
         List<Turno> turnos = turnoRepository.findAll();
         return turnos.stream()
                 .map(this::convertToDto)
@@ -56,7 +56,7 @@ public class TurnoService implements ITurnoService{
     }
 
     @Override
-    public List<TurnoDto> findByFecha(LocalDate fecha) {
+    public List<TurnoDTO> findByFecha(LocalDate fecha) {
         List<Turno> turnos = turnoRepository.findByFecha(fecha);
         return turnos.stream()
                 .map(this::convertToDto)
@@ -64,7 +64,7 @@ public class TurnoService implements ITurnoService{
     }
 
     @Override
-    public List<TurnoDto> findByFechaBetween(LocalDate desde, LocalDate hasta) {
+    public List<TurnoDTO> findByFechaBetween(LocalDate desde, LocalDate hasta) {
         List<Turno> turnos = turnoRepository.findByFechaBetween(desde,hasta);
         return turnos.stream()
                 .map(this::convertToDto)
@@ -79,8 +79,8 @@ public class TurnoService implements ITurnoService{
         turnoRepository.deleteById(id);
     }
 
-    private TurnoDto convertToDto(Turno turno){
-        return new TurnoDto(
+    private TurnoDTO convertToDto(Turno turno){ //hago esto para no duplicar el código de conversión de turno a turnoDTO.
+        return new TurnoDTO(
                 turno.getId(),
                 turno.getPaciente().getNombre() + " " + turno.getPaciente().getApellido(), //hago asi para tener nombre completo
                 turno.getProfesional().getNombreCompleto(),

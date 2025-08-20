@@ -1,19 +1,19 @@
 package com.mobydigital.evaluacion.service;
 
-import com.mobydigital.evaluacion.dto.TurnoDto;
+import com.mobydigital.evaluacion.dto.TurnoDTO;
 import com.mobydigital.evaluacion.model.Turno;
 import java.time.LocalDate;
 import java.util.List;
 
 public interface ITurnoService {
 
-    public TurnoDto saveTurno (Turno turno);
+    public TurnoDTO saveTurno (Turno turno);
 
-    public List<TurnoDto> getTurnos();
+    public List<TurnoDTO> getTurnos();
 
-    public List<TurnoDto> findByFecha(LocalDate fecha);
+    public List<TurnoDTO> findByFecha(LocalDate fecha);
 
-    public List<TurnoDto> findByFechaBetween(LocalDate desde, LocalDate hasta);
+    public List<TurnoDTO> findByFechaBetween(LocalDate desde, LocalDate hasta);
 
     public void deleteTurno (Long id);
 }
