@@ -1,5 +1,6 @@
 package com.mobydigital.evaluacion.service;
 
+import com.mobydigital.evaluacion.dto.TurnoDto;
 import com.mobydigital.evaluacion.exception.DatoInvalidoException;
 import com.mobydigital.evaluacion.exception.RecursoNoEncontradoException;
 import com.mobydigital.evaluacion.model.Paciente;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TurnoService implements ITurnoService{
@@ -27,7 +29,7 @@ public class TurnoService implements ITurnoService{
     @Autowired
     private IProfesionalRepository profesionalRepository;
     @Override
-    public Turno saveTurno(Turno turno) {
+    public TurnoDto saveTurno(Turno turno) {
         //Validar si existe Paciente
         Optional<Paciente> pacExistente = pacienteRepository.findById(turno.getPaciente().getId());
         if (pacExistente.isEmpty()) {
@@ -42,22 +44,31 @@ public class TurnoService implements ITurnoService{
         if (turnoRepository.findByPacienteAndProfesionalAndFecha(turno.getPaciente(),turno.getProfesional(),turno.getFecha()).isPresent()) {
             throw new DatoInvalidoException("Ya existe un turno para el mismo paciente, profesional y fecha. ");
         }
-
-        return turnoRepository.save(turno);
+        //Convertir Turno en DTO
+        return convertToDto(turnoRepository.save(turno));
     }
     @Override
-    public List<Turno> getTurnos() {
-        return turnoRepository.findAll();
-    }
-
-    @Override
-    public List<Turno> findByFecha(LocalDate fecha) {
-        return turnoRepository.findByFecha(fecha);
+    public List<TurnoDto> getTurnos() {
+        List<Turno> turnos = turnoRepository.findAll();
+        return turnos.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Turno> findByFechaBetween(LocalDate desde, LocalDate hasta) {
-        return turnoRepository.findByFechaBetween(desde,hasta);
+    public List<TurnoDto> findByFecha(LocalDate fecha) {
+        List<Turno> turnos = turnoRepository.findByFecha(fecha);
+        return turnos.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TurnoDto> findByFechaBetween(LocalDate desde, LocalDate hasta) {
+        List<Turno> turnos = turnoRepository.findByFechaBetween(desde,hasta);
+        return turnos.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -66,5 +77,14 @@ public class TurnoService implements ITurnoService{
             throw new RecursoNoEncontradoException("El turno con ID " + id + " no existe. ");
         }
         turnoRepository.deleteById(id);
+    }
+
+    private TurnoDto convertToDto(Turno turno){
+        return new TurnoDto(
+                turno.getId(),
+                turno.getPaciente().getNombre() + " " + turno.getPaciente().getApellido(), //hago asi para tener nombre completo
+                turno.getProfesional().getNombreCompleto(),
+                turno.getProfesional().getEspecialidad(),
+                turno.getFecha());
     }
 }
