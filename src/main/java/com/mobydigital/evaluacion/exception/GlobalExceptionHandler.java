@@ -16,8 +16,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(DatoInvalidoException.class)
-    public ResponseEntity<String> handleDatoInvalido(DatoInvalidoException ex){
+    @ExceptionHandler(TurnoExistenteException.class)
+    public ResponseEntity<String> handleTurnoExistente(TurnoExistenteException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 

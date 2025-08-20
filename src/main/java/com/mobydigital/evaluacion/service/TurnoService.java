@@ -1,7 +1,7 @@
 package com.mobydigital.evaluacion.service;
 
 import com.mobydigital.evaluacion.dto.TurnoDTO;
-import com.mobydigital.evaluacion.exception.DatoInvalidoException;
+import com.mobydigital.evaluacion.exception.TurnoExistenteException;
 import com.mobydigital.evaluacion.exception.RecursoNoEncontradoException;
 import com.mobydigital.evaluacion.model.Paciente;
 import com.mobydigital.evaluacion.model.Profesional;
@@ -42,7 +42,7 @@ public class TurnoService implements ITurnoService{
         }
         //Validar que no haya duplicados
         if (turnoRepository.findByPacienteAndProfesionalAndFecha(turno.getPaciente(),turno.getProfesional(),turno.getFecha()).isPresent()) {
-            throw new DatoInvalidoException("Ya existe un turno para el mismo paciente, profesional y fecha. ");
+            throw new TurnoExistenteException("Ya existe un turno para el mismo paciente, profesional y fecha. ");
         }
         //Convertir Turno en DTO
         return convertToDto(turnoRepository.save(turno));
