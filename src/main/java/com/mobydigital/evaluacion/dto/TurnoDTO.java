@@ -12,8 +12,8 @@ import java.time.LocalDate;
 public class TurnoDTO {
 
     private Long id;
-    private String nombreCompletoPaciente;
-    private String nombreCompletoProfesional;
+    private String nombrePaciente;
+    private String nombreProfesional;
     private String especialidadProfesional;
     private LocalDate fecha;
 

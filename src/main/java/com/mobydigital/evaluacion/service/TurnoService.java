@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,26 +33,33 @@ public class TurnoService implements ITurnoService{
     private static final Logger logger = LoggerFactory.getLogger(TurnoService.class);
     @Override
     public TurnoDTO saveTurno(Turno turno) {
+
         //Validar si existe Paciente
-        Optional<Paciente> pacExistente = pacienteRepository.findById(turno.getPaciente().getId());
-        if (pacExistente.isEmpty()) {
+        Paciente paciente = pacienteRepository.findById(turno.getPaciente().getId()).orElseThrow(() ->
+        {
             logger.error("No existe el paciente buscado con ID: {}", turno.getPaciente().getId());
-            throw new RecursoNoEncontradoException("El paciente con ID " + turno.getPaciente().getId() + " no existe.");
-        }
+            return new RecursoNoEncontradoException("El paciente con ID " + turno.getPaciente().getId() + " no existe.");
+        });
+
         //Validar si existe Profesional
-        Optional<Profesional> profExistente = profesionalRepository.findById(turno.getProfesional().getId());
-        if (profExistente.isEmpty()) {
+        Profesional profesional = profesionalRepository.findById(turno.getProfesional().getId()).orElseThrow(() ->
+        {
             logger.error("No existe el profesional buscado con ID: {}", turno.getProfesional().getId());
-            throw new RecursoNoEncontradoException("El profesional con ID " + turno.getProfesional().getId() + " no existe.");
-        }
+            return new RecursoNoEncontradoException("El profesional con ID " + turno.getProfesional().getId() + " no existe.");
+        });
+
         //Validar que no haya duplicados
-        if (turnoRepository.findByPacienteAndProfesionalAndFecha(turno.getPaciente(),turno.getProfesional(),turno.getFecha()).isPresent()) {
-            logger.error("Se intenta duplicar un turno, para el paciente {} {}",turno.getPaciente().getNombre(), turno.getPaciente().getApellido());
+        if (turnoRepository.findByPacienteAndProfesionalAndFecha(paciente,profesional,turno.getFecha()).isPresent()) {
+            logger.error("Se intenta duplicar un turno, para el paciente {} {}",paciente.getNombre(), paciente.getApellido());
             throw new TurnoExistenteException("Ya existe un turno para el mismo paciente, profesional y fecha. ");
         }
-        logger.info("Guardando el turno con ID: {}", turno.getId());
+        turno.setPaciente(paciente);
+        turno.setProfesional(profesional);
+
+        Turno nuevoTurno = turnoRepository.save(turno);
+        logger.info("Guardando el turno con ID: {}", nuevoTurno.getId());
         //Convertir Turno en DTO
-        return convertToDto(turnoRepository.save(turno));
+        return convertToDto(nuevoTurno);
     }
     @Override
     public List<TurnoDTO> getTurnos() {
