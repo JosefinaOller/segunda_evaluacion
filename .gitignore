@@ -34,3 +34,5 @@ build/
 
 /data/evaluaciondb.mv.db
 data/evaluaciondb.mv.db
+
+/logs/
