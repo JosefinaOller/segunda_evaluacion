@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface IProfesionalRepository extends JpaRepository<Profesional, Long> {
-    List<Profesional> findByEspecialidad(String especialidad);
+    List<Profesional> findByEspecialidadIgnoreCase(String especialidad);
 }
