@@ -25,6 +25,6 @@ public class ProfesionalService implements IProfesionalService{
 
     @Override
     public List<Profesional> findByEspecialidad(String especialidad) {
-        return repository.findByEspecialidad(especialidad);
+        return repository.findByEspecialidadIgnoreCase(especialidad);
     }
 }
